@@ -13,6 +13,7 @@ def show_menu():
     print("9. Tangent")
     print("10. Logarithm (base e)")
     print("11. Exponential (e^x)")
+    print("12. Factorial")
     print("0. Exit")
 
 def get_valid_number(prompt):
@@ -22,6 +23,14 @@ def get_valid_number(prompt):
             return num
         except ValueError:
             print("Invalid input. Please enter a valid number.")
+
+def get_valid_integer(prompt):
+    while True:
+        try:
+            num = int(input(prompt))
+            return num
+        except ValueError:
+            print("Invalid input. Please enter a valid integer.")
 
 def add(a, b):
     return a + b
@@ -43,7 +52,11 @@ def power(base, exponent):
     return math.pow(base, exponent)
 
 def square_root(a):
-    return math.sqrt(a)
+    if a >= 0:
+        return math.sqrt(a)
+    else:
+        print("Error: Square root of negative number")
+        return None
 
 def sine(angle):
     return math.sin(math.radians(angle))
@@ -55,10 +68,21 @@ def tangent(angle):
     return math.tan(math.radians(angle))
 
 def logarithm(a):
-    return math.log(a)
+    if a > 0:
+        return math.log(a)
+    else:
+        print("Error: Logarithm of non-positive number")
+        return None
 
 def exponential(a):
     return math.exp(a)
+
+def factorial(a):
+    if a >= 0:
+        return math.factorial(a)
+    else:
+        print("Error: Factorial of negative number")
+        return None
 
 def main():
     while True:
@@ -88,7 +112,9 @@ def main():
 
         elif choice == '6':
             num = get_valid_number("Enter a number: ")
-            print("Result:", square_root(num))
+            result = square_root(num)
+            if result is not None:
+                print("Result:", result)
 
         elif choice in ['7', '8', '9']:
             angle = get_valid_number("Enter an angle in degrees: ")
@@ -101,11 +127,19 @@ def main():
 
         elif choice == '10':
             num = get_valid_number("Enter a number: ")
-            print("Result:", logarithm(num))
+            result = logarithm(num)
+            if result is not None:
+                print("Result:", result)
 
         elif choice == '11':
             num = get_valid_number("Enter a number: ")
             print("Result:", exponential(num))
+        
+        elif choice == '12':
+            num = get_valid_integer("Enter an integer: ")
+            result = factorial(num)
+            if result is not None:
+                print("Result:", result)
 
         else:
             print("Invalid choice. Please try again.")
